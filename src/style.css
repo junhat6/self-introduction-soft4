@@ -1,4 +1,3 @@
-/* ベースリセット */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -6,76 +5,73 @@
 }
 
 body {
-  font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  line-height: 1.8;
+  font-family: 'Noto Sans JP';
+  background-color: #ffffff;
+  color: #1a1a1a;
+  line-height: 1.7;
 }
 
-main {
-  max-width: 720px;
+.container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
+  padding: 0 40px;
 }
 
-/* ヒーローセクション */
-.hero {
-  text-align: center;
-  padding: 3rem 0 2rem;
-  border-bottom: 2px solid #eee;
-  margin-bottom: 2rem;
+/* ===== CSS変数（カラーテーマ） ===== */
+:root {
+  --text-main:    #1a1a1a;
+  --text-sub:     #767676;
+  --text-muted:   #949494;
+  --bg-page:      #ffffff;
+  --bg-alt:       #f2f2f2;
+  --border:       #949494;
+  --border-strong:#767676;
+  --accent:       #0017c1;
+  --accent-hover: #00118f;
+  --accent-light: #e8f1fe;
+  --link:         #00118f;
+  --link-hover:   #0017c1;
+  --font-sans:    'Noto Sans JP';
+  --font-mono:    'Noto Sans Mono';
 }
 
-.hero h1 {
-  font-size: 2.5rem;
+.nav {
+  background-color: var(--bg-page);
+  border-bottom: 1px solid var(--border-strong);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav .container {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  font-size: 15px;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  color: var(--text-main);
 }
 
-.hero .tagline {
-  font-size: 1rem;
-  color: #666;
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
 }
 
-/* セクション共通 */
-section {
-  margin-bottom: 2.5rem;
+.nav-links a {
+  font-size: 14px;
+  color: var(--text-sub);
+  text-decoration: none;
 }
 
-h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  border-left: 4px solid #333;
-  padding-left: 0.75rem;
-  margin-bottom: 1rem;
+.nav-links a:hover {
+  color: var(--text-main);
 }
 
-h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-top: 1rem;
-  margin-bottom: 0.4rem;
-  color: #555;
-}
 
-p {
-  margin-bottom: 0.75rem;
-}
 
-ul {
-  padding-left: 1.5rem;
-  margin-bottom: 0.75rem;
-}
 
-li {
-  margin-bottom: 0.3rem;
-}
-
-/* スキルグループ */
-.skill-group {
-  margin-top: 1rem;
-}
-
-strong {
-  font-weight: 600;
-}

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ワイヤーフレーム</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    /* ---- ラベルスタイル共通 ---- */
+    .label {
+      font-size: 11px;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .block {
+      background: #e8e8e8;
+      border: 1.5px dashed #bbb;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    /* ---- ナビ ---- */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 0 40px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .nav-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #555;
+    }
+    nav .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    nav .nav-links li {
+      font-size: 13px;
+      color: #888;
+    }
+
+    /* ---- コンテンツ共通 ---- */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    section {
+      padding: 64px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    h2.section-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    /* ---- Hero ---- */
+    .hero {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 80px 0;
+    }
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-text .name-placeholder {
+      background: #e8e8e8;
+      border-radius: 4px;
+      height: 52px;
+      width: 280px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      color: #bbb;
+      font-size: 13px;
+    }
+    .hero-text .catch-placeholder {
+      background: #f0f0f0;
+      border-radius: 4px;
+      height: 28px;
+      width: 380px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      color: #bbb;
+      font-size: 13px;
+    }
+    .hero-text .tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .hero-text .tag {
+      background: #e8e8e8;
+      border-radius: 2px;
+      height: 28px;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 11px;
+    }
+    .hero-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      border: 2px dashed #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+      justify-self: center;
+    }
+
+    /* ---- About + Skills（2カラム） ---- */
+    .about-skills .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .about-text .line {
+      background: #e8e8e8;
+      border-radius: 3px;
+      height: 14px;
+      margin-bottom: 10px;
+    }
+    .about-text .line.short { width: 70%; }
+    .about-text .line.medium { width: 90%; }
+    .about-text .line.full { width: 100%; }
+
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .skill-row .skill-label {
+      font-size: 11px;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+    .skill-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .skill-chip {
+      background: #e8e8e8;
+      border-radius: 2px;
+      height: 24px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      color: #bbb;
+      font-size: 11px;
+    }
+
+    /* ---- Works ---- */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .work-card {
+      background: #fff;
+      border: 1.5px dashed #bbb;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .work-card .card-thumb {
+      background: #e0e0e0;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 12px;
+    }
+    .work-card .card-body {
+      padding: 12px;
+    }
+    .work-card .card-title {
+      background: #e8e8e8;
+      height: 14px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+      width: 80%;
+    }
+    .work-card .card-desc {
+      background: #f0f0f0;
+      height: 10px;
+      border-radius: 3px;
+      margin-bottom: 6px;
+    }
+    .work-card .card-desc.short {
+      width: 60%;
+    }
+    .work-card .card-tags {
+      display: flex;
+      gap: 4px;
+      margin-top: 10px;
+    }
+    .work-card .card-tag {
+      background: #e8e8e8;
+      border-radius: 2px;
+      height: 18px;
+      width: 52px;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+    }
+
+    /* ---- Personality / エピソード ---- */
+    .personality .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .hobby-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .hobby-item {
+      background: #e8e8e8;
+      border-radius: 3px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      color: #bbb;
+      font-size: 12px;
+    }
+    .episode-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .episode-item {
+      border-left: 3px solid #ddd;
+      padding-left: 12px;
+    }
+    .episode-item .ep-title {
+      background: #e0e0e0;
+      height: 12px;
+      border-radius: 3px;
+      width: 50%;
+      margin-bottom: 6px;
+    }
+    .episode-item .ep-body {
+      background: #f0f0f0;
+      height: 10px;
+      border-radius: 3px;
+      margin-bottom: 4px;
+    }
+    .episode-item .ep-body.short {
+      width: 75%;
+    }
+
+    /* ---- Footer ---- */
+    footer {
+      background: #fff;
+      border-top: 1px solid #e0e0e0;
+      padding: 32px 0;
+    }
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-name {
+      background: #e8e8e8;
+      height: 14px;
+      width: 120px;
+      border-radius: 3px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-link {
+      background: #e8e8e8;
+      height: 14px;
+      width: 60px;
+      border-radius: 3px;
+    }
+
+    /* ---- セクションラベル（右上） ---- */
+    .section-note {
+      float: right;
+      font-size: 10px;
+      color: #ccc;
+      margin-top: -4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ナビ -->
+  <nav>
+    <span class="nav-name">名前</span>
+    <ul class="nav-links">
+      <li>About</li>
+      <li>Skills</li>
+      <li>Works</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-text">
+        <p class="label">Hero</p>
+        <div class="name-placeholder">名前（大きめ）</div>
+        <div class="catch-placeholder">キャッチコピー / 一言自己紹介</div>
+        <div class="tags">
+          <div class="tag">Kotlin</div>
+          <div class="tag">Spring Boot</div>
+          <div class="tag">React</div>
+          <div class="tag">AWS</div>
+        </div>
+      </div>
+      <div class="hero-photo">写真</div>
+    </div>
+  </section>
+
+  <!-- About + Skills -->
+  <section class="about-skills" style="background:#fff;">
+    <div class="container">
+      <div>
+        <h2 class="section-title">About</h2>
+        <div class="about-text">
+          <div class="line full"></div>
+          <div class="line medium"></div>
+          <div class="line full"></div>
+          <div class="line short"></div>
+          <div class="line full"></div>
+          <div class="line medium"></div>
+        </div>
+      </div>
+      <div>
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-row">
+            <div class="skill-label">バックエンド</div>
+            <div class="skill-chips">
+              <div class="skill-chip">Kotlin</div>
+              <div class="skill-chip">Spring Boot</div>
+              <div class="skill-chip">Rails</div>
+              <div class="skill-chip">FastAPI</div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label">フロントエンド</div>
+            <div class="skill-chips">
+              <div class="skill-chip">React</div>
+              <div class="skill-chip">Vue</div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label">インフラ</div>
+            <div class="skill-chips">
+              <div class="skill-chip">AWS</div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-label">資格</div>
+            <div class="skill-chips">
+              <div class="skill-chip" style="width:auto;padding:0 10px;">基本情報技術者（科目B 満点）</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Works -->
+  <section>
+    <div class="container">
+      <h2 class="section-title">Works</h2>
+      <div class="works-grid">
+        <div class="work-card">
+          <div class="card-thumb">サムネ / スクショ</div>
+          <div class="card-body">
+            <div class="card-title"></div>
+            <div class="card-desc"></div>
+            <div class="card-desc short"></div>
+            <div class="card-tags">
+              <div class="card-tag">Swift</div>
+              <div class="card-tag">iOS</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-card">
+          <div class="card-thumb">サムネ / スクショ</div>
+          <div class="card-body">
+            <div class="card-title"></div>
+            <div class="card-desc"></div>
+            <div class="card-desc short"></div>
+            <div class="card-tags">
+              <div class="card-tag">React</div>
+              <div class="card-tag">LLM</div>
+            </div>
+          </div>
+        </div>
+        <div class="work-card">
+          <div class="card-thumb">サムネ / スクショ</div>
+          <div class="card-body">
+            <div class="card-title"></div>
+            <div class="card-desc"></div>
+            <div class="card-desc short"></div>
+            <div class="card-tags">
+              <div class="card-tag">AWS</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personality -->
+  <section class="personality" style="background:#fff;">
+    <div class="container">
+      <div>
+        <h2 class="section-title">趣味 / 好きなこと</h2>
+        <div class="hobby-list">
+          <div class="hobby-item">スノーボード / ゴルフ / フットサル</div>
+          <div class="hobby-item">K-POP（LE SSERAFIM・BABYMONSTER・aespa）</div>
+          <div class="hobby-item">ゲーム</div>
+          <div class="hobby-item">本（内定先研修で爆読み中）</div>
+        </div>
+      </div>
+      <div>
+        <h2 class="section-title">神戸電子エピソード</h2>
+        <div class="episode-list">
+          <div class="episode-item">
+            <div class="ep-title"></div>
+            <div class="ep-body"></div>
+            <div class="ep-body short"></div>
+          </div>
+          <div class="episode-item">
+            <div class="ep-title"></div>
+            <div class="ep-body"></div>
+            <div class="ep-body short"></div>
+          </div>
+          <div class="episode-item">
+            <div class="ep-title"></div>
+            <div class="ep-body"></div>
+            <div class="ep-body short"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-name"></div>
+      <div class="footer-links">
+        <div class="footer-link"></div>
+        <div class="footer-link"></div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
