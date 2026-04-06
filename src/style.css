@@ -6,19 +6,6 @@
   padding: 0;
 }
 
-body {
-  font-family: 'Noto Sans JP';
-  background-color: #ffffff;
-  color: #1a1a1a;
-  line-height: 1.7;
-}
-
-.container {
-  max-width: 968px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
 /* ===== CSS変数（カラーテーマ） ===== */
 :root {
   --text-main: #1a1a1a;
@@ -35,6 +22,29 @@ body {
   --link-hover: #0017c1;
   --font-sans: 'Noto Sans JP';
   --font-mono: 'Noto Sans Mono';
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.7;
+  text-autospace: normal;
+}
+
+p {
+  word-break: auto-phrase;
+  text-wrap: pretty;
+}
+
+h1 h2 h3 {
+  text-wrap: balance;
+}
+
+.container {
+  max-width: 968px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
 .nav {
@@ -76,7 +86,6 @@ body {
 
 .hero {
   background-color: var(--bg-page);
-  border-bottom: 1px solid var(--border);
   padding: 80px 0;
 }
 
@@ -85,6 +94,16 @@ body {
   grid-template-columns: 1fr 240px;
   gap: 48px;
   align-items: center;
+}
+
+@media (max-width: 640px) {
+  .hero .container {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-photo {
+    order: 1;
+  }
 }
 
 .hero-name {
@@ -142,13 +161,12 @@ body {
 
 .about-skills {
   background-color: var(--bg-alt);
-  border-bottom: 1px solid var(--border);
   padding: 64px 0px;
 }
 
 .about-skills .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
   gap: 48px;
 }
 
@@ -160,8 +178,10 @@ body {
   color: var(--text-main);
 }
 
-.about-text+.about-text {
-  margin-top: 1em;
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .skills-grid {
@@ -197,13 +217,12 @@ body {
 
 .works {
   background-color: var(--bg-page);
-  border-radius: 1px solid var(--border);
   padding: 64px 0;
 }
 
 .works-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
 
@@ -275,13 +294,12 @@ body {
 
 .personality {
   background-color: var(--bg-alt);
-  border-radius: 1px solid var(--border);
   padding: 64px 0;
 }
 
 .personality .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
   gap: 48px;
 }
 
@@ -358,7 +376,7 @@ body {
   margin-bottom: 10px;
   text-decoration: none;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--text-muted);
 }
 
 .footer-links {
@@ -370,7 +388,7 @@ body {
 }
 
 .footer-links a {
-  color: #1d4ed8;
+  color: var(--link);
   text-decoration: none;
   font-weight: 600;
   font-size: 13px;
